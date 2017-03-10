@@ -1,11 +1,58 @@
 module AmazonAuth
   class Client
-    DEFAULT_ENTRY_URL = 'https://www.amazon.co.jp/ap/signin?_encoding=UTF8&openid.assoc_handle=jpflex&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.co.jp%2Fgp%2Fcss%2Fhomepage.html%3Fref_%3Dnav_signin'
+    INITIAL_ENTRY_URL = 'https://www.amazon.co.jp/'
 
     def initialize(options = {})
-      @url = options.fetch(:url) { DEFAULT_ENTRY_URL }
+      @url = options.fetch(:url) { INITIAL_ENTRY_URL }
       @login = options.fetch(:login) { ENV['AMAZON_USERNAME'].presence || raise('AMAZON_USERNAME is required.') }
       @password = options.fetch(:password) { ENV['AMAZON_PASSWORD'].presence || raise('AMAZON_PASSWORD is required.') }
+    end
+
+    def sign_in
+      @session = Capybara::Session.new(:selenium)
+      @session.visit @url
+      @session.within('#nav-tools') do
+        @session.click_on 'サインイン'
+      end
+
+      fill_in_with_stroke('ap_email', @login)
+      fill_in_with_stroke('ap_password', @password)
+      @session.click_on('signInSubmit')
+
+      while image_recognition_displayed? do
+        retry_sign_in
+      end
+
+      @session.first('.nav-line-2').click
+      @session
+    end
+
+    def retry_sign_in
+      fill_in_with_stroke('ap_password', @password)
+      input = ask "Got the prompt. Read characters from the image: "
+      fill_in_with_stroke('auth-captcha-guess', input)
+      @session.click_on('signInSubmit')
+    end
+
+    def fill_in_with_stroke(dom_id, value)
+      sleep_s
+      element = @session.first("##{dom_id}")
+      value.split(//u).each do |char|
+        element.send_keys(char)
+        sleep rand
+      end
+    end
+
+    def image_recognition_displayed?
+      @session.has_content?('お客様のアカウントを強力に保護するため') || @session.has_content?('問題が発生しました')
+    end
+
+    def driver
+      @session.driver
+    end
+
+    def sleep_s(sec = 2)
+      sleep sec
     end
   end
 end
