@@ -26,31 +26,26 @@ This may not work with newer versions of Firefox.
 
 ## Usage
 
-```
-cp .env.sample .env
-vi .env
-```
-
 ### Set Amazon credentials on your local machine
 
-[Quick] You can set `AMAZON_USERNAME` and `AMAZON_PASSWORD` in _.env_.
+[Quick] You can set login and password in console.
 
 [Recommended] Or you can convert them to protect them against shoulder surfing.
-Run `./exe/convert_amazon_credentials` and paste the output to _env_.
-(`AMAZON_USERNAME_CODE` and `AMAZON_PASSWORD_CODE`)
-
-You can change the salt with `AMAZON_CODE_SALT` if you like.
+Run `convert_amazon_credentials` and paste the output to _env_.
+(`AMAZON_USERNAME_CODE` , `AMAZON_PASSWORD_CODE` and `AMAZON_CODE_SALT`)
 
 ### Run
 
-```
-bin/console
-```
-
-You can move around pages using Capybara DSL
+In console, you can move around pages using Capybara DSL
 
 ```ruby
+# Without credentials in .env
+client = AmazonAuth::Client.new(login: 'your_amazon_email', password: 'your_amazon_password')
+
+# With credentials in .env
 client = AmazonAuth::Client.new
+
+# Sign in
 page = client.sign_in
 
 # Continue to the page for Kindle
@@ -64,9 +59,18 @@ page.driver.quit
 
 Some features come from https://github.com/kyamaguchi/kindle
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```
+git clone https://github.com/kyamaguchi/amazon_auth.git
+cd amazon_auth
+bundle
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+./exe/convert_amazon_credentials
+vi .env
+
+rspec
+
+./bin/console
+```
 
 ## Contributing
 
