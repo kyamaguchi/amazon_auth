@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'capybara'
   spec.add_runtime_dependency 'selenium-webdriver'
   spec.add_runtime_dependency 'highline'
+  spec.add_runtime_dependency 'dotenv'
   spec.add_runtime_dependency 'activesupport'
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"

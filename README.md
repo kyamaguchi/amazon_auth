@@ -26,6 +26,13 @@ This may not work with newer versions of Firefox.
 
 ## Usage
 
+Set email and password in .env
+
+```
+cp .env.sample .env
+vi .env
+```
+
 ```
 bin/console
 ```
@@ -33,7 +40,7 @@ bin/console
 You can move around pages using Capybara DSL
 
 ```ruby
-client = AmazonAuth::Client.new(login: 'your_email@example.com', password: 'your_amazon_password')
+client = AmazonAuth::Client.new
 page = client.sign_in
 
 # Continue to the page for Kindle
