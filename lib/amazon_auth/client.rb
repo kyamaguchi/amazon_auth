@@ -4,8 +4,20 @@ module AmazonAuth
 
     def initialize(options = {})
       @url = options.fetch(:url) { INITIAL_ENTRY_URL }
-      @login = options.fetch(:login) { ENV['AMAZON_USERNAME'].presence || raise('AMAZON_USERNAME is required.') }
-      @password = options.fetch(:password) { ENV['AMAZON_PASSWORD'].presence || raise('AMAZON_PASSWORD is required.') }
+      @login = options.fetch(:login) do
+        if (amazon_username_code = ENV['AMAZON_USERNAME_CODE']).present?
+          Converter.decode(amazon_username_code)
+        else
+          ENV['AMAZON_USERNAME'].presence || raise('AMAZON_USERNAME is required.')
+        end
+      end
+      @password = options.fetch(:password) do
+        if (amazon_password_code = ENV['AMAZON_PASSWORD_CODE']).present?
+          Converter.decode(amazon_password_code)
+        else
+          ENV['AMAZON_PASSWORD'].presence || raise('AMAZON_PASSWORD is required.')
+        end
+      end
     end
 
     def sign_in

@@ -26,12 +26,22 @@ This may not work with newer versions of Firefox.
 
 ## Usage
 
-Set email and password in .env
-
 ```
 cp .env.sample .env
 vi .env
 ```
+
+### Set Amazon credentials on your local machine
+
+[Quick] You can set `AMAZON_USERNAME` and `AMAZON_PASSWORD` in _.env_.
+
+[Recommended] Or you can convert them to protect them against shoulder surfing.
+Run `./bin/convert_login` and paste the output to _env_.
+(`AMAZON_USERNAME_CODE` and `AMAZON_PASSWORD_CODE`)
+
+You can change the salt with `AMAZON_CODE_SALT` if you like.
+
+### Run
 
 ```
 bin/console

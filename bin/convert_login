@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/amazon_auth"
+require 'highline/import'
+
+result = []
+
+login = if amazon_username = ENV['AMAZON_USERNAME']
+  amazon_username
+else
+  ask("Enter your #{AmazonInfo.domain} username: ") { |q| q.echo = true } unless login = ARGV[0]
+end
+passwd = ENV['AMAZON_PASSWORD'] || ask("Enter your #{AmazonInfo.domain} password: ") { |q| q.echo = "*" }
+
+raise "Empty login or password" if login.to_s.size == 0 || passwd.to_s.size == 0
+
+puts "Put the following lines in .env (Remove AMAZON_USERNAME and AMAZON_PASSWORD if you have)"
+puts
+puts "AMAZON_USERNAME_CODE=#{AmazonAuth::Converter.encode(login)}"
+puts "AMAZON_PASSWORD_CODE=#{AmazonAuth::Converter.encode(passwd)}"

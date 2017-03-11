@@ -1,10 +1,12 @@
 require 'dotenv'
 Dotenv.load
-require "amazon_auth/version"
 require "active_support/all"
 require "capybara"
 require "highline/import"
-require "amazon_auth/client"
+require_relative "amazon_auth/version"
+require_relative "amazon_auth/amazon_info"
+require_relative "amazon_auth/converter"
+require_relative "amazon_auth/client"
 
 module AmazonAuth
 end
