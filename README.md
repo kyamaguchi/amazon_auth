@@ -36,7 +36,7 @@ vi .env
 [Quick] You can set `AMAZON_USERNAME` and `AMAZON_PASSWORD` in _.env_.
 
 [Recommended] Or you can convert them to protect them against shoulder surfing.
-Run `./bin/convert_login` and paste the output to _env_.
+Run `./exe/convert_amazon_credentials` and paste the output to _env_.
 (`AMAZON_USERNAME_CODE` and `AMAZON_PASSWORD_CODE`)
 
 You can change the salt with `AMAZON_CODE_SALT` if you like.
