@@ -1,8 +1,6 @@
 # AmazonAuth
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/amazon_auth`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Sign In Amazon using Capybara and Selenium
 
 ## Installation
 
@@ -20,9 +18,30 @@ Or install it yourself as:
 
     $ gem install amazon_auth
 
+## Requirements
+
+Firefox (<= 47.0.2)
+
+This may not work with newer versions of Firefox.
+
 ## Usage
 
-TODO: Write usage instructions here
+```
+bin/console
+```
+
+You can move around pages using Capybara DSL
+
+```ruby
+client = AmazonAuth::Client.new(login: 'your_email@example.com', password: 'your_amazon_password')
+page = client.sign_in
+
+# Continue to the page for Kindle
+page.first('a', text: 'コンテンツと端末の管理').click
+
+# Close browser
+page.driver.quit
+```
 
 ## Development
 
@@ -32,8 +51,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/amazon_auth.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/kyamaguchi/amazon_auth.
 
 ## License
 
