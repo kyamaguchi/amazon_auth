@@ -66,5 +66,10 @@ module AmazonAuth
     def sleep_s(sec = 2)
       sleep sec
     end
+
+    # Hide instance variables of credentials on console
+    def inspect
+      to_s
+    end
   end
 end
