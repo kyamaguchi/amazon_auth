@@ -30,8 +30,8 @@ This may not work with newer versions of Firefox.
 
 [Quick] You can set login and password in console.
 
-[Recommended] Or you can convert them to protect them against shoulder surfing.
-Run `convert_amazon_credentials` and paste the output to _env_.
+[Recommended] Or you can convert them to protect them against shoulder surfing.  
+Run `amazon_auth` and paste the output to _env_.  
 (`AMAZON_USERNAME_CODE` , `AMAZON_PASSWORD_CODE` and `AMAZON_CODE_SALT`)
 
 ### Run
@@ -64,7 +64,7 @@ git clone https://github.com/kyamaguchi/amazon_auth.git
 cd amazon_auth
 bundle
 
-./exe/convert_amazon_credentials
+./exe/amazon_auth
 vi .env
 
 rspec
