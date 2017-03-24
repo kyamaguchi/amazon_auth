@@ -22,10 +22,8 @@ module AmazonAuth
 
     def sign_in
       @session = Capybara::Session.new(:selenium)
-      @session.visit @url
-      @session.within('#nav-tools') do
-        @session.click_on 'サインイン'
-      end
+      @session.visit initial_url
+      @session.first('#a-autoid-0-announce').click
 
       fill_in_with_stroke('ap_email', @login)
       fill_in_with_stroke('ap_password', @password)
