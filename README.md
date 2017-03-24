@@ -20,9 +20,17 @@ Or install it yourself as:
 
 ## Requirements
 
+This gem may not work with newer versions of Firefox.
+
 Firefox (<= 47.0.2)
 
-This may not work with newer versions of Firefox.
+[Download Firefox](https://ftp.mozilla.org/pub/firefox/releases/)  
+Don't forget to disable automatic updates of Firefox.  
+
+You may also need geckodriver.  
+This may need to be older depending on the version of selenium-webdriver.  
+e.g. geckodriver v0.14.0 works with selenium-webdriver 3.2  
+[Download geckodriver](https://github.com/mozilla/geckodriver/releases)  
 
 ## Usage
 
