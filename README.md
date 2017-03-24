@@ -55,6 +55,12 @@ page.first('a', text: 'コンテンツと端末の管理').click
 page.driver.quit
 ```
 
+### Use amamzon site in different domain
+
+Set `AMAZON_DOMAIN` in _.env_.
+
+e.g. `AMAZON_DOMAIN=amazon.co.jp` for Japanese site
+
 ## Development
 
 Some features come from https://github.com/kyamaguchi/kindle

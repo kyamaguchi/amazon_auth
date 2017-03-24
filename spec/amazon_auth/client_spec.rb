@@ -44,5 +44,28 @@ describe AmazonAuth::Client do
       end
     end
   end
+
+  describe '#initial_url' do
+    it 'has us domain by default' do
+      with_env_vars valid_vars do
+        client = AmazonAuth::Client.new
+        expect(client.initial_url).to match(/www\.amazon\.com/)
+      end
+    end
+
+    it 'switches domain with envvar' do
+      with_env_vars valid_vars.merge('AMAZON_DOMAIN' => 'amazon.co.jp') do
+        client = AmazonAuth::Client.new
+        expect(client.initial_url).to match(/www\.amazon\.co\.jp/)
+      end
+    end
+
+    it 'changes url with argument' do
+      with_env_vars valid_vars do
+        client = AmazonAuth::Client.new(url: 'https://www.amazon.co.uk')
+        expect(client.initial_url).to match(/www\.amazon\.co\.uk/)
+      end
+    end
+  end
 end
 

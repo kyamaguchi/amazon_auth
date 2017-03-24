@@ -1,9 +1,9 @@
 module AmazonAuth
   class Client
-    INITIAL_ENTRY_URL = 'https://www.amazon.co.jp/'
+    attr_accessor :initial_url
 
     def initialize(options = {})
-      @url = options.fetch(:url) { INITIAL_ENTRY_URL }
+      @initial_url = options.fetch(:url) { "https://www.#{AmazonInfo.domain}/" }
       @login = options.fetch(:login) do
         if (amazon_username_code = ENV['AMAZON_USERNAME_CODE']).present?
           Converter.decode(amazon_username_code)

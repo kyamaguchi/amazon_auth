@@ -1,5 +1,5 @@
 class AmazonInfo
   def self.domain
-    'amazon.co.jp'
+    ENV['AMAZON_DOMAIN'].presence || 'amazon.com'
   end
 end
