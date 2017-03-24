@@ -30,8 +30,8 @@ This may not work with newer versions of Firefox.
 
 [Quick] You can set login and password in console.
 
-[Recommended] Or you can convert them to protect them against shoulder surfing.  
-Run `amazon_auth` and paste the output to _env_.  
+[Recommended] Or you can convert them to protect them against shoulder surfing.
+Run `amazon_auth` and paste the output to _.env_.
 (`AMAZON_USERNAME_CODE` , `AMAZON_PASSWORD_CODE` and `AMAZON_CODE_SALT`)
 
 ### Run
@@ -59,13 +59,15 @@ page.driver.quit
 
 Some features come from https://github.com/kyamaguchi/kindle
 
+Use _.env.development_ instead of _.env_ in development.
+
 ```
 git clone https://github.com/kyamaguchi/amazon_auth.git
 cd amazon_auth
 bundle
 
 ./exe/amazon_auth
-vi .env
+vi .env.development
 
 rspec
 
