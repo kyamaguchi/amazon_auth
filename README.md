@@ -1,5 +1,7 @@
 # AmazonAuth
 
+[![Build Status](https://travis-ci.org/kyamaguchi/amazon_auth.svg?branch=master)](https://travis-ci.org/kyamaguchi/amazon_auth)
+
 Sign In Amazon using Capybara and Selenium
 
 ## Installation
