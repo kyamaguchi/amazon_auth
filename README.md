@@ -56,13 +56,13 @@ client = AmazonAuth::Client.new(login: 'your_amazon_email', password: 'your_amaz
 client = AmazonAuth::Client.new
 
 # Sign in
-page = client.sign_in
+client.sign_in
 
 # Continue to the page for Kindle
-page.first('a', text: 'コンテンツと端末の管理').click
+client.session.all('a').find{|e| e['href'] =~ %r{/gp/digital/fiona/manage/} }.click
 
 # Close browser
-page.driver.quit
+client.driver.quit
 ```
 
 ### Use amamzon site in different domain
