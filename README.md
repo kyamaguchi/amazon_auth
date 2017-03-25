@@ -74,6 +74,23 @@ Set `AMAZON_DOMAIN` in _.env_.
 
 e.g. `AMAZON_DOMAIN=amazon.co.jp` for Japanese site
 
+### Use Chrome (chromedriver)
+
+You can use Chrome instead of Firefox
+
+Before running, you need to download chromedriver.
+Please download latest chromedriver_xxx.zip from http://chromedriver.storage.googleapis.com/index.html and place it somewhere on your PATH.
+
+```
+mv ~/Downloads/chromedriver /usr/local/bin/
+```
+
+In console,
+
+```
+client = AmazonAuth::Client.new(driver: :chrome)
+```
+
 ## Development
 
 Some features come from https://github.com/kyamaguchi/kindle
