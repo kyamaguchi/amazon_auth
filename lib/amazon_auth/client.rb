@@ -1,9 +1,9 @@
 module AmazonAuth
   class Client
-    INITIAL_ENTRY_URL = 'https://www.amazon.co.jp/'
+    attr_accessor :initial_url
 
     def initialize(options = {})
-      @url = options.fetch(:url) { INITIAL_ENTRY_URL }
+      @initial_url = options.fetch(:url) { "https://www.#{AmazonInfo.domain}/" }
       @login = options.fetch(:login) do
         if (amazon_username_code = ENV['AMAZON_USERNAME_CODE']).present?
           Converter.decode(amazon_username_code)
@@ -21,46 +21,53 @@ module AmazonAuth
     end
 
     def sign_in
-      @session = Capybara::Session.new(:selenium)
-      @session.visit @url
-      @session.within('#nav-tools') do
-        @session.click_on 'サインイン'
-      end
+      session.visit initial_url
+      session.first('#a-autoid-0-announce').click
 
       fill_in_with_stroke('ap_email', @login)
       fill_in_with_stroke('ap_password', @password)
-      @session.click_on('signInSubmit')
+      session.click_on('signInSubmit')
 
-      while image_recognition_displayed? do
+      while alert_displayed? do
         retry_sign_in
       end
 
-      @session.first('.nav-line-2').click
-      @session
+      session.first('.nav-line-2').click
+      session
     end
 
     def retry_sign_in
       fill_in_with_stroke('ap_password', @password)
-      input = ask "Got the prompt. Read characters from the image: "
-      fill_in_with_stroke('auth-captcha-guess', input)
-      @session.click_on('signInSubmit')
+      if image_recognition_displayed?
+        input = ask "Got the prompt. Read characters from the image: "
+        fill_in_with_stroke('auth-captcha-guess', input)
+      end
+      session.click_on('signInSubmit')
     end
 
     def fill_in_with_stroke(dom_id, value)
       sleep_s
-      element = @session.first("##{dom_id}")
+      element = session.first("##{dom_id}")
       value.split(//u).each do |char|
         element.send_keys(char)
         sleep rand
       end
     end
 
+    def alert_displayed?
+      session.has_selector?('.a-alert-container')
+    end
+
     def image_recognition_displayed?
-      @session.has_content?('お客様のアカウントを強力に保護するため') || @session.has_content?('問題が発生しました')
+      session.has_selector?('#auth-captcha-image-container')
+    end
+
+    def session
+      @session ||= Capybara::Session.new(:selenium)
     end
 
     def driver
-      @session.driver
+      session.driver
     end
 
     def sleep_s(sec = 2)

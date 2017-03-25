@@ -20,9 +20,17 @@ Or install it yourself as:
 
 ## Requirements
 
+This gem may not work with newer versions of Firefox.
+
 Firefox (<= 47.0.2)
 
-This may not work with newer versions of Firefox.
+[Download Firefox](https://ftp.mozilla.org/pub/firefox/releases/)  
+Don't forget to disable automatic updates of Firefox.  
+
+You may also need geckodriver.  
+This may need to be older depending on the version of selenium-webdriver.  
+e.g. geckodriver v0.14.0 works with selenium-webdriver 3.2  
+[Download geckodriver](https://github.com/mozilla/geckodriver/releases)  
 
 ## Usage
 
@@ -30,8 +38,8 @@ This may not work with newer versions of Firefox.
 
 [Quick] You can set login and password in console.
 
-[Recommended] Or you can convert them to protect them against shoulder surfing.  
-Run `amazon_auth` and paste the output to _env_.  
+[Recommended] Or you can convert them to protect them against shoulder surfing.
+Run `amazon_auth` and paste the output to _.env_.
 (`AMAZON_USERNAME_CODE` , `AMAZON_PASSWORD_CODE` and `AMAZON_CODE_SALT`)
 
 ### Run
@@ -55,9 +63,17 @@ page.first('a', text: 'コンテンツと端末の管理').click
 page.driver.quit
 ```
 
+### Use amamzon site in different domain
+
+Set `AMAZON_DOMAIN` in _.env_.
+
+e.g. `AMAZON_DOMAIN=amazon.co.jp` for Japanese site
+
 ## Development
 
 Some features come from https://github.com/kyamaguchi/kindle
+
+Use _.env.development_ instead of _.env_ in development.
 
 ```
 git clone https://github.com/kyamaguchi/amazon_auth.git
@@ -65,7 +81,7 @@ cd amazon_auth
 bundle
 
 ./exe/amazon_auth
-vi .env
+vi .env.development
 
 rspec
 

@@ -8,3 +8,5 @@
 /spec/reports/
 /tmp/
 /.env
+/.env.development
+/.byebug_history
