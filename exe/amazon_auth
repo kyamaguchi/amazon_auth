@@ -5,8 +5,9 @@ require 'highline/import'
 
 result = []
 
-login = ask("Enter your #{AmazonInfo.domain} username: ") { |q| q.echo = true }
-passwd = ask("Enter your #{AmazonInfo.domain} password: ") { |q| q.echo = "*" }
+domain = ask("Enter your amazon domain: ") { |q| q.echo = true ; q.default = AmazonInfo.domain }
+login = ask("Enter your #{domain} username: ") { |q| q.echo = true }
+passwd = ask("Enter your #{domain} password: ") { |q| q.echo = "*" }
 salt = ask("Enter your salt: ") { |q| q.default = AmazonAuth::Converter.default_salt ; q.echo = true }
 
 raise "Empty login or password" if login.to_s.size == 0 || passwd.to_s.size == 0
@@ -15,6 +16,7 @@ converter = AmazonAuth::Converter.new(salt)
 
 puts "Put the following lines in .env"
 puts
+puts "AMAZON_DOMAIN=#{domain}"
 puts "AMAZON_USERNAME_CODE=#{converter.encode(login)}"
 puts "AMAZON_PASSWORD_CODE=#{converter.encode(passwd)}"
 puts "AMAZON_CODE_SALT=#{salt}"
