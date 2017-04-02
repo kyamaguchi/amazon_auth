@@ -65,7 +65,7 @@ client.session.all('a').find{|e| e['href'] =~ %r{/gp/digital/fiona/manage/} }.cl
 client.driver.quit
 ```
 
-### Use amamzon site in different domain
+### Use amazon site in different domain
 
 Set `AMAZON_DOMAIN` in _.env_.
 
