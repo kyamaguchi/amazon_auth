@@ -1,5 +1,6 @@
 # AmazonAuth
 
+[![Gem Version](https://badge.fury.io/rb/amazon_auth.svg)](https://badge.fury.io/rb/amazon_auth)
 [![Build Status](https://travis-ci.org/kyamaguchi/amazon_auth.svg?branch=master)](https://travis-ci.org/kyamaguchi/amazon_auth)
 
 Sign In Amazon using Capybara and Selenium
