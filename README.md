@@ -32,8 +32,10 @@ Don't forget to disable automatic updates of Firefox.
 
 You may also need geckodriver.  
 This may need to be older depending on the version of selenium-webdriver.  
-e.g. geckodriver v0.14.0 works with selenium-webdriver 3.2  
+
 [Download geckodriver](https://github.com/mozilla/geckodriver/releases)  
+
+If the browser doesn't work, try selenium-webdriver version '~> 2.0' or different version of geckodriver/Firefox.
 
 ## Usage
 

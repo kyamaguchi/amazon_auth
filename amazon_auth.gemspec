@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency 'capybara'
-  spec.add_runtime_dependency 'selenium-webdriver', '~> 3.2.0'
+  spec.add_runtime_dependency 'selenium-webdriver'
   spec.add_runtime_dependency 'highline'
   spec.add_runtime_dependency 'dotenv'
   spec.add_runtime_dependency 'activesupport'
