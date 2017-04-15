@@ -47,7 +47,7 @@ If the browser doesn't work, try selenium-webdriver version '~> 2.0' or differen
 Run `amazon_auth` and paste the output to _.env_.
 (`AMAZON_USERNAME_CODE` , `AMAZON_PASSWORD_CODE` and `AMAZON_CODE_SALT`)
 
-![screenshot](https://raw.githubusercontent.com/kyamaguchi/amazon_auth/5f7fec5203ff55a1f8d93b69e9286f5bd51ce15c/amazon_auth_setup.gif)
+![amazon_auth_setup](https://cloud.githubusercontent.com/assets/275284/25064607/9b9b80be-2238-11e7-95fc-c1547a83f178.gif)
 
 ### Run
 
