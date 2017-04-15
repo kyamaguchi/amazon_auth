@@ -10,3 +10,4 @@
 /.env
 /.env.development
 /.byebug_history
+/.ruby-version
