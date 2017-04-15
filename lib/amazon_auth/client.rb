@@ -25,8 +25,9 @@ module AmazonAuth
       session.visit initial_url
       session.first('#a-autoid-0-announce').click
 
-      fill_in_with_stroke('ap_email', @login)
-      fill_in_with_stroke('ap_password', @password)
+      sleep_s
+      session.fill_in 'ap_email', with: @login
+      session.fill_in 'ap_password', with: @password
       session.click_on('signInSubmit')
 
       while alert_displayed? do
@@ -38,21 +39,12 @@ module AmazonAuth
     end
 
     def retry_sign_in
-      fill_in_with_stroke('ap_password', @password)
+      session.fill_in 'ap_password', with: @password
       if image_recognition_displayed?
         input = ask "Got the prompt. Read characters from the image: "
-        fill_in_with_stroke('auth-captcha-guess', input)
+        session.fill_in 'auth-captcha-guess', with: input
       end
       session.click_on('signInSubmit')
-    end
-
-    def fill_in_with_stroke(dom_id, value)
-      sleep_s
-      element = session.first("##{dom_id}")
-      value.split(//u).each do |char|
-        element.send_keys(char)
-        sleep rand
-      end
     end
 
     def alert_displayed?
