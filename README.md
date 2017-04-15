@@ -47,6 +47,8 @@ If the browser doesn't work, try selenium-webdriver version '~> 2.0' or differen
 Run `amazon_auth` and paste the output to _.env_.
 (`AMAZON_USERNAME_CODE` , `AMAZON_PASSWORD_CODE` and `AMAZON_CODE_SALT`)
 
+![screenshot](https://raw.githubusercontent.com/kyamaguchi/amazon_auth/5f7fec5203ff55a1f8d93b69e9286f5bd51ce15c/amazon_auth_setup.gif)
+
 ### Run
 
 In console, you can move around pages using Capybara DSL
