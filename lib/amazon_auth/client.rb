@@ -18,6 +18,7 @@ module AmazonAuth
           raise('AMAZON_PASSWORD_CODE is required.')
         end
       end
+      @driver = options.fetch(:driver, :selenium)
     end
 
     def sign_in
@@ -63,7 +64,7 @@ module AmazonAuth
     end
 
     def session
-      @session ||= Capybara::Session.new(:selenium)
+      @session ||= Capybara::Session.new(@driver)
     end
 
     def driver
