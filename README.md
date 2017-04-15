@@ -5,6 +5,9 @@
 
 Sign In Amazon using Capybara and Selenium
 
+![amazon_auth_login](https://cloud.githubusercontent.com/assets/275284/25064724/7f5faae4-223b-11e7-9fc6-4a82d1d727ab.gif)
+Recorded with [Recordit](http://recordit.co/)
+
 ## Installation
 
 Add this line to your application's Gemfile:
