@@ -59,6 +59,10 @@ module AmazonAuth
       @session ||= Capybara::Session.new(@driver)
     end
 
+    def doc
+      Nokogiri.HTML(session.body)
+    end
+
     def driver
       session.driver
     end
