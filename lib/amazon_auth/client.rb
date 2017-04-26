@@ -21,6 +21,9 @@ module AmazonAuth
         end
       end
       @driver = options.fetch(:driver, :selenium)
+    rescue => e
+      puts "Please setup credentials of amazon_auth gem with folloing its instruction."
+      raise e
     end
 
     def sign_in
