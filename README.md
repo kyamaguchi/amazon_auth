@@ -67,10 +67,8 @@ client = AmazonAuth::Client.new
 client.sign_in
 
 # Continue to the page for Kindle
-client.session.all('a').find{|e| e['href'] =~ %r{/gp/digital/fiona/manage/} }.click
-
-# Close browser
-client.driver.quit
+link = client.links_for('#navFooter a').find{|link| link =~ %r{/gp/digital/fiona/manage/} }
+client.session.visit link
 ```
 
 ### Use amazon site in different domain

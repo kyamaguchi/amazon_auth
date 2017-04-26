@@ -21,24 +21,42 @@ module AmazonAuth
       @driver = options.fetch(:driver, :selenium)
     end
 
+    def links_for(selector, options = {})
+      wait_for_selector(selector, options)
+      doc.css(selector).map{|e| e['href'] }
+    end
+
+    def wait_for_selector(selector, options = {})
+      options.fetch(:wait_time, 3).times do
+        if session.first(selector)
+          break
+        else
+          sleep(1)
+        end
+      end
+    end
+
     def sign_in
       session.visit initial_url
-      session.first('#a-autoid-0-announce').click
+      link = links_for('#nav-signin-tooltip a').find{|link| link =~ %r{\A/gp/navigation/redirector.html} }
+      session.visit(link) if link
+      submit_signin_form
+    end
 
-      sleep_s
+    def submit_signin_form
+      return true unless session.has_selector?('#signInSubmit')
       session.fill_in 'ap_email', with: @login
       session.fill_in 'ap_password', with: @password
       session.click_on('signInSubmit')
 
-      while alert_displayed? do
-        retry_sign_in
+      raise('Failed on signin') if alert_displayed?
+      while image_recognition_displayed? do
+        retry_signin_form_with_image_recognition
       end
-
-      session.first('.nav-line-2').click
-      session
+      true
     end
 
-    def retry_sign_in
+    def retry_signin_form_with_image_recognition
       session.fill_in 'ap_password', with: @password
       if image_recognition_displayed?
         input = ask "Got the prompt. Read characters from the image: "
@@ -48,7 +66,7 @@ module AmazonAuth
     end
 
     def alert_displayed?
-      session.has_selector?('.a-alert-container')
+      session.has_selector?('.a-alert-error')
     end
 
     def image_recognition_displayed?
@@ -59,12 +77,8 @@ module AmazonAuth
       @session ||= Capybara::Session.new(@driver)
     end
 
-    def driver
-      session.driver
-    end
-
-    def sleep_s(sec = 2)
-      sleep sec
+    def doc
+      Nokogiri.HTML(session.html)
     end
 
     # Hide instance variables of credentials on console
