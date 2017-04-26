@@ -1,13 +1,6 @@
 require 'spec_helper'
 
 describe AmazonAuth::Client do
-  let(:valid_vars) do
-    {
-      'AMAZON_USERNAME_CODE' => 'aWxvdmVhbWF6b250ZXN0QGV4YW1wbGUuY29t',
-      'AMAZON_PASSWORD_CODE' => 'aWxvdmVhbWF6b250ZXN0cGFzc3dvcmQ=',
-      'AMAZON_CODE_SALT' => 'iloveamazon',
-    }
-  end
 
   describe '.new' do
     it "fails to initialize when login isn't given" do
