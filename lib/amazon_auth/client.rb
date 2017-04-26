@@ -44,12 +44,15 @@ module AmazonAuth
     end
 
     def retry_signin_form_with_image_recognition
+      return true unless session.has_selector?('#signInSubmit')
       session.fill_in 'ap_password', with: @password
       if image_recognition_displayed?
         input = ask "Got the prompt. Read characters from the image: "
         session.fill_in 'auth-captcha-guess', with: input
       end
+      sleep 1
       session.click_on('signInSubmit')
+      sleep 2
     end
 
     def alert_displayed?
