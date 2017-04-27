@@ -1,5 +1,7 @@
 module AmazonAuth
   class Client
+    include AmazonAuth::SessionExtension
+
     attr_accessor :initial_url
 
     def initialize(options = {})
@@ -19,21 +21,9 @@ module AmazonAuth
         end
       end
       @driver = options.fetch(:driver, :selenium)
-    end
-
-    def links_for(selector, options = {})
-      wait_for_selector(selector, options)
-      doc.css(selector).map{|e| e['href'] }
-    end
-
-    def wait_for_selector(selector, options = {})
-      options.fetch(:wait_time, 3).times do
-        if session.first(selector)
-          break
-        else
-          sleep(1)
-        end
-      end
+    rescue => e
+      puts "Please setup credentials of amazon_auth gem with folloing its instruction."
+      raise e
     end
 
     def sign_in
@@ -57,12 +47,15 @@ module AmazonAuth
     end
 
     def retry_signin_form_with_image_recognition
+      return true unless session.has_selector?('#signInSubmit')
       session.fill_in 'ap_password', with: @password
       if image_recognition_displayed?
         input = ask "Got the prompt. Read characters from the image: "
         session.fill_in 'auth-captcha-guess', with: input
       end
+      sleep 1
       session.click_on('signInSubmit')
+      sleep 2
     end
 
     def alert_displayed?
@@ -75,10 +68,6 @@ module AmazonAuth
 
     def session
       @session ||= Capybara::Session.new(@driver)
-    end
-
-    def doc
-      Nokogiri.HTML(session.html)
     end
 
     # Hide instance variables of credentials on console
