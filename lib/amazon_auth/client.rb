@@ -51,6 +51,7 @@ module AmazonAuth
       session.fill_in 'ap_password', with: @password
       if image_recognition_displayed?
         input = ask "Got the prompt. Read characters from the image: "
+        return true if input.blank? || !session.first('#auth-captcha-guess') # Skip when form is submitted manually
         session.fill_in 'auth-captcha-guess', with: input
       end
       sleep 1
