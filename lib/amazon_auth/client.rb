@@ -21,6 +21,8 @@ module AmazonAuth
         end
       end
       @driver = options.fetch(:driver, :selenium)
+
+      Capybara.app_host = @initial_url
     rescue => e
       puts "Please setup credentials of amazon_auth gem with folloing its instruction."
       raise e

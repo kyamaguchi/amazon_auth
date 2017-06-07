@@ -26,19 +26,15 @@ Or install it yourself as:
 
 ## Requirements
 
-This gem may not work with newer versions of Firefox.
+- chromedriver
 
-Firefox (<= 47.0.2)
+Before running, you need to **download chromedriver**.  
+And you may need to **update chromedriver regularly**.  
+Please download latest chromedriver_xxx.zip from http://chromedriver.storage.googleapis.com/index.html and place it somewhere on your PATH.
 
-[Download Firefox](https://ftp.mozilla.org/pub/firefox/releases/)  
-Don't forget to disable automatic updates of Firefox.  
-
-You may also need geckodriver.  
-This may need to be older depending on the version of selenium-webdriver.  
-
-[Download geckodriver](https://github.com/mozilla/geckodriver/releases)  
-
-If the browser doesn't work, try selenium-webdriver version '~> 2.0' or different version of geckodriver/Firefox.
+```
+mv ~/Downloads/chromedriver /usr/local/bin/
+```
 
 ## Usage
 
@@ -77,21 +73,27 @@ Set `AMAZON_DOMAIN` in _.env_.
 
 e.g. `AMAZON_DOMAIN=amazon.co.jp` for Japanese site
 
-### Use Chrome (chromedriver)
+### Use Firefox
 
-You can use Chrome instead of Firefox
+This gem may not work with newer versions of Firefox.  
+Check README of [capybara](https://github.com/teamcapybara/capybara).  
 
-Before running, you need to download chromedriver.
-Please download latest chromedriver_xxx.zip from http://chromedriver.storage.googleapis.com/index.html and place it somewhere on your PATH.
+Firefox (<= 47.0.2) may work better.  
 
-```
-mv ~/Downloads/chromedriver /usr/local/bin/
-```
+[Download Firefox](https://ftp.mozilla.org/pub/firefox/releases/)  
+Don't forget to disable automatic updates of Firefox.  
+
+You may also need geckodriver.  
+This may need to be older depending on the version of selenium-webdriver.  
+
+[Download geckodriver](https://github.com/mozilla/geckodriver/releases)  
+
+If the browser doesn't work, try selenium-webdriver version '~> 2.0' or different version of geckodriver/Firefox.
 
 In console,
 
 ```
-client = AmazonAuth::Client.new(driver: :chrome)
+client = AmazonAuth::Client.new(driver: :firefox)
 ```
 
 ## Development
