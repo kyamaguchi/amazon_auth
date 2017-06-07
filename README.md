@@ -26,7 +26,10 @@ Or install it yourself as:
 
 ## Requirements
 
-Before running, you need to download chromedriver.  
+- chromedriver
+
+Before running, you need to **download chromedriver**.  
+And you may need to **update chromedriver regularly**.  
 Please download latest chromedriver_xxx.zip from http://chromedriver.storage.googleapis.com/index.html and place it somewhere on your PATH.
 
 ```
