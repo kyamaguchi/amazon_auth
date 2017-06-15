@@ -1,10 +1,12 @@
 module AmazonAuth
   class Client
+    include AmazonAuth::CommonExtension
     include AmazonAuth::SessionExtension
 
     attr_accessor :initial_url
 
     def initialize(options = {})
+      @options = options
       @initial_url = options.fetch(:url) { "https://www.#{AmazonInfo.domain}/" }
       @login = options.fetch(:login) do
         if (amazon_username_code = ENV['AMAZON_USERNAME_CODE']).present?
@@ -30,21 +32,26 @@ module AmazonAuth
 
     def sign_in
       session.visit initial_url
+      debug "Visiting #{initial_url}"
       link = links_for('#nav-signin-tooltip a').find{|link| link =~ %r{\A/gp/navigation/redirector.html} }
+      debug "link: [#{link}]"
       session.visit(link) if link
       submit_signin_form
     end
 
     def submit_signin_form
+      debug "Begin submit_signin_form"
       return true unless session.has_selector?('#signInSubmit')
       session.fill_in 'ap_email', with: @login
       session.fill_in 'ap_password', with: @password
       session.click_on('signInSubmit')
+      log "Clicked signInSubmit"
 
       raise('Failed on signin') if alert_displayed?
       while image_recognition_displayed? do
         retry_signin_form_with_image_recognition
       end
+      debug "End submit_signin_form"
       true
     end
 
