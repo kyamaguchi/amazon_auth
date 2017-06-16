@@ -73,6 +73,20 @@ Set `AMAZON_DOMAIN` in _.env_.
 
 e.g. `AMAZON_DOMAIN=amazon.co.jp` for Japanese site
 
+### Logging
+
+Normal logging
+
+```ruby
+client = AmazonAuth::Client.new(verbose: true)
+```
+
+More logging (This includes `session.current_url`)
+
+```ruby
+client = AmazonAuth::Client.new(debug: true)
+```
+
 ### Use Firefox
 
 This gem may not work with newer versions of Firefox.  
