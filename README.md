@@ -112,8 +112,6 @@ client = AmazonAuth::Client.new(driver: :firefox)
 
 ## Development
 
-Some features come from https://github.com/kyamaguchi/kindle
-
 Use _.env.development_ instead of _.env_ in development.
 
 ```
