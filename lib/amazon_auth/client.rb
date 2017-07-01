@@ -41,10 +41,13 @@ module AmazonAuth
 
     def submit_signin_form
       debug "Begin submit_signin_form"
-      return true unless session.has_selector?('#signInSubmit')
-      session.fill_in 'ap_email', with: @login
+      unless session.has_selector?('#signInSubmit')
+        log "signInSubmit button not found"
+        return false
+      end
+      session.fill_in 'ap_email', with: @login if session.first('#ap_email').value.blank?
       session.fill_in 'ap_password', with: @password
-      session.click_on('signInSubmit')
+      session.first('#signInSubmit').click
       log "Clicked signInSubmit"
 
       raise('Failed on signin') if alert_displayed?
