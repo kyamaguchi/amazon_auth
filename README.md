@@ -6,6 +6,7 @@
 Sign In Amazon using Capybara and Selenium
 
 ![amazon_auth_login](https://cloud.githubusercontent.com/assets/275284/25064724/7f5faae4-223b-11e7-9fc6-4a82d1d727ab.gif)
+
 Recorded with [Recordit](http://recordit.co/)
 
 ## Installation
@@ -47,6 +48,22 @@ Run `amazon_auth` and paste the output to _.env_.
 (`AMAZON_USERNAME_CODE` , `AMAZON_PASSWORD_CODE` and `AMAZON_CODE_SALT`)
 
 ![amazon_auth_setup](https://cloud.githubusercontent.com/assets/275284/25064607/9b9b80be-2238-11e7-95fc-c1547a83f178.gif)
+
+### envchain for security
+
+You can store environment variables in macOS Keychain instead of dotenv.
+Check out [envchain](https://github.com/sorah/envchain)
+
+```
+brew install envchain
+
+envchain --set amazon AMAZON_DOMAIN AMAZON_USERNAME_CODE AMAZON_PASSWORD_CODE AMAZON_CODE_SALT
+
+# Run console with envchain
+envchain amazon bin/console
+envchain amazon bundle exec irb
+envchain amazon rails console
+```
 
 ### Run
 
