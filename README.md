@@ -141,6 +141,10 @@ In console,
 client = AmazonAuth::Client.new(driver: :firefox)
 ```
 
+## TODO
+
+- [Idea] Hook `submit_signin_form` after every `visit` and `click` action
+
 ## Development
 
 Use _.env.development_ instead of _.env_ in development.
