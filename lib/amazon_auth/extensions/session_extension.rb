@@ -25,9 +25,10 @@ module AmazonAuth
       options.fetch(:url) { "https://www.#{AmazonInfo.domain}/" }
     end
 
-    def sign_in
-      session.visit initial_url
-      debug "Visiting #{initial_url}"
+    def sign_in(url = nil)
+      url ||= initial_url
+      session.visit url
+      debug "Visiting #{url}"
       restore_cookies if keep_cookie?
       if (link = links_for('a').find{|link| link =~ %r{\A/gp/navigation/redirector.html} })
         debug "link: [#{link}]"
