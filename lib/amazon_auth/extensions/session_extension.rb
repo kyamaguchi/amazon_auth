@@ -29,7 +29,7 @@ module AmazonAuth
       session.visit initial_url
       debug "Visiting #{initial_url}"
       restore_cookies if keep_cookie?
-      if (link = links_for('#nav-signin-tooltip a').find{|link| link =~ %r{\A/gp/navigation/redirector.html} })
+      if (link = links_for('a').find{|link| link =~ %r{\A/gp/navigation/redirector.html} })
         debug "link: [#{link}]"
         session.visit(link)
       end
