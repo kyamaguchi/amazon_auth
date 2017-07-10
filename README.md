@@ -90,6 +90,20 @@ Set `AMAZON_DOMAIN` in _.env_.
 
 e.g. `AMAZON_DOMAIN=amazon.co.jp` for Japanese site
 
+### Keep cookies
+
+Using [capybara-sessionkeeper gem](https://github.com/kyamaguchi/capybara-sessionkeeper)
+
+```
+client = AmazonAuth::Client.new(keep_cookie: true, debug: true)
+```
+
+You can change Capyabra.save_path when it isn't set
+
+```
+client = AmazonAuth::Client.new(keep_cookie: true, save_path: 'tmp/cookies', debug: true)
+```
+
 ### Logging
 
 Normal logging
@@ -126,6 +140,10 @@ In console,
 ```
 client = AmazonAuth::Client.new(driver: :firefox)
 ```
+
+## TODO
+
+- [Idea] Hook `submit_signin_form` after every `visit` and `click` action
 
 ## Development
 

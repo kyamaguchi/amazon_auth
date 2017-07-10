@@ -2,6 +2,7 @@ require 'dotenv'
 Dotenv.load
 require "active_support/all"
 require "capybara"
+require "capybara/sessionkeeper"
 require "highline/import"
 begin
   require 'byebug'
