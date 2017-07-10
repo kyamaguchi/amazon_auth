@@ -3,7 +3,7 @@ module AmazonAuth
     include AmazonAuth::CommonExtension
     include AmazonAuth::SessionExtension
 
-    attr_accessor :initial_url
+    attr_accessor :initial_url, :options
 
     def initialize(options = {})
       @options = options
@@ -24,7 +24,8 @@ module AmazonAuth
       end
       @driver = options.fetch(:driver, :selenium)
 
-      Capybara.app_host = @initial_url
+      Capybara.save_path = options.fetch(:save_path, 'tmp') if Capybara.save_path.nil?
+      Capybara.app_host = @initial_url if Capybara.app_host.nil?
     rescue => e
       puts "Please setup credentials of amazon_auth gem with folloing its instruction."
       raise e
@@ -33,16 +34,30 @@ module AmazonAuth
     def sign_in
       session.visit initial_url
       debug "Visiting #{initial_url}"
-      link = links_for('#nav-signin-tooltip a').find{|link| link =~ %r{\A/gp/navigation/redirector.html} }
-      debug "link: [#{link}]"
-      session.visit(link) if link
+      restore_cookies if keep_cookie?
+      if (link = links_for('#nav-signin-tooltip a').find{|link| link =~ %r{\A/gp/navigation/redirector.html} })
+        debug "link: [#{link}]"
+        session.visit(link)
+      end
       submit_signin_form
+    end
+
+    def restore_cookies
+      log "Restoring cookies"
+      wait_for_selector('body')
+      session.restore_cookies
+      session.visit session.current_url
+      session.save_cookies
+    end
+
+    def keep_cookie?
+      options[:keep_cookie]
     end
 
     def submit_signin_form
       debug "Begin submit_signin_form"
       unless session.has_selector?('#signInSubmit')
-        log "signInSubmit button not found"
+        log "signInSubmit button not found in this page"
         return false
       end
       session.fill_in 'ap_email', with: @login if session.first('#ap_email').value.blank?
@@ -55,6 +70,7 @@ module AmazonAuth
         retry_signin_form_with_image_recognition
       end
       debug "End submit_signin_form"
+      session.save_cookies if keep_cookie?
       true
     end
 
