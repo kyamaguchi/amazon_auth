@@ -67,6 +67,8 @@ module AmazonAuth
       debug "End submit_signin_form"
       session.save_cookies if keep_cookie?
       true
+    rescue => e
+      raise("#{e.message} #{e.backtrace.first}\n\n#{session.body}")
     end
 
     def retry_signin_form_with_image_recognition
