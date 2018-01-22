@@ -55,7 +55,7 @@ module AmazonAuth
         log "signInSubmit button not found in this page"
         return false
       end
-      session.fill_in 'ap_email', with: login if session.first('#ap_email').value.blank?
+      session.fill_in 'ap_email', with: login if session.first('#ap_email') && session.first('#ap_email').value.blank?
       session.fill_in 'ap_password', with: password
       session.first('#signInSubmit').click
       log "Clicked signInSubmit"
