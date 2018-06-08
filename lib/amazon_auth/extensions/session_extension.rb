@@ -57,6 +57,9 @@ module AmazonAuth
       end
       session.fill_in 'ap_email', with: login if session.first('#ap_email') && session.first('#ap_email').value.blank?
       session.fill_in 'ap_password', with: password
+      puts "="*80
+      puts session.body
+      puts "="*80
       session.first('#signInSubmit').click
       log "Clicked signInSubmit"
 
