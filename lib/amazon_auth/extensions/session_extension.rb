@@ -55,13 +55,20 @@ module AmazonAuth
         log "signInSubmit button not found in this page"
         return false
       end
-      session.fill_in 'ap_email', with: login if session.first('#ap_email') && session.first('#ap_email').value.blank?
-      session.fill_in 'ap_password', with: password
-      puts "="*80
-      puts session.body
-      puts "="*80
-      session.first('#signInSubmit').click
-      log "Clicked signInSubmit"
+      2.times do
+        if session.has_selector?('#signInSubmit')
+          session.fill_in 'ap_email', with: login if session.first('#ap_email') && session.first('#ap_email').value.blank?
+          session.first('input[name="rememberMe"]')&.click
+          session.fill_in 'ap_password', with: password
+          sleep 1
+          puts "password: #{session.first('#ap_password').value}"
+          puts "="*80
+          puts session.body
+          puts "="*80
+          session.first('#signInSubmit').click
+          log "Clicked signInSubmit"
+        end
+      end
 
       raise('Failed on signin') if alert_displayed?
       while image_recognition_displayed? do
