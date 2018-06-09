@@ -50,6 +50,7 @@ module AmazonAuth
     end
 
     def submit_signin_form
+      session.first('.cvf-account-switcher-profile-details').click if session.has_selector?('.cvf-account-switcher-profile-details')
       debug "Begin submit_signin_form"
       unless session.has_selector?('#signInSubmit')
         log "signInSubmit button not found in this page"
