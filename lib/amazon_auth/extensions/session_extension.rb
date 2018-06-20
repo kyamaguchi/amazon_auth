@@ -12,7 +12,7 @@ module AmazonAuth
 
     def wait_for_selector(selector, options = {})
       options.fetch(:wait_time, 3).times do
-        if session.first(selector)
+        if session.first(selector, minimum: 0)
           break
         else
           sleep(1)
@@ -56,7 +56,7 @@ module AmazonAuth
         log "signInSubmit button not found in this page"
         return false
       end
-      session.fill_in 'ap_email', with: login if session.first('#ap_email') && session.first('#ap_email').value.blank?
+      session.fill_in 'ap_email', with: login if session.first('#ap_email', minimum: 0) && session.first('#ap_email').value.blank?
       session.fill_in 'ap_password', with: password
       session.first('#signInSubmit').click
       log "Clicked signInSubmit"
