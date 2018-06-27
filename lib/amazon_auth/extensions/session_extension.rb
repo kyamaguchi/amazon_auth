@@ -53,8 +53,14 @@ module AmazonAuth
       session.first('.cvf-account-switcher-profile-details').click if session.has_selector?('.cvf-account-switcher-profile-details')
       debug "Begin submit_signin_form"
       unless session.has_selector?('#signInSubmit')
-        log "signInSubmit button not found in this page"
-        return false
+        if session.has_selector?('input#continue') && session.has_selector?('input#ap_email')
+          log "Found a form which asks only email"
+          session.fill_in 'ap_email', with: login
+          session.first('input#continue').click
+        else
+          log "signInSubmit button not found in this page"
+          return false
+        end
       end
       session.fill_in 'ap_email', with: login if session.first('#ap_email', minimum: 0) && session.first('#ap_email').value.blank?
       session.fill_in 'ap_password', with: password
