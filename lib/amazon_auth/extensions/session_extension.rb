@@ -50,7 +50,10 @@ module AmazonAuth
     end
 
     def submit_signin_form
-      session.first('.cvf-account-switcher-profile-details').click if session.has_selector?('.cvf-account-switcher-profile-details')
+      # Click account switcher if it is displayed
+      dom_account_switcher = '.cvf-account-switcher-profile-details, .cvf-account-switcher-claim'
+      session.first(dom_account_switcher).click if session.has_selector?(dom_account_switcher)
+
       debug "Begin submit_signin_form"
       unless session.has_selector?('#signInSubmit')
         if session.has_selector?('input#continue') && session.has_selector?('input#ap_email')
