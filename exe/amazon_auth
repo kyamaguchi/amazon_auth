@@ -3,12 +3,10 @@
 require_relative "../lib/amazon_auth"
 require 'highline/import'
 
-result = []
-
-domain = ask("Enter your amazon domain: ") { |q| q.echo = true ; q.default = AmazonInfo.domain }
+domain = ask("Enter your amazon domain: ") { |q| q.echo = true; q.default = AmazonInfo.domain }
 login = ask("Enter your #{domain} username: ") { |q| q.echo = true }
 passwd = ask("Enter your #{domain} password: ") { |q| q.echo = "*" }
-salt = ask("Enter your salt: ") { |q| q.default = AmazonAuth::Converter.default_salt ; q.echo = true }
+salt = ask("Enter your salt: ") { |q| q.default = AmazonAuth::Converter.default_salt; q.echo = true }
 
 raise "Empty login or password" if login.to_s.size == 0 || passwd.to_s.size == 0
 
