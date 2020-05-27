@@ -1,6 +1,5 @@
 module AmazonAuth
   module SessionExtension
-
     def doc
       Nokogiri.HTML(session.html)
     end
@@ -111,6 +110,7 @@ module AmazonAuth
     def login
       options.fetch(:login, Converter.decode(ENV['AMAZON_USERNAME_CODE']))
     end
+
     def password
       options.fetch(:password, Converter.decode(ENV['AMAZON_PASSWORD_CODE']))
     end
