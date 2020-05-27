@@ -1,6 +1,5 @@
 module AmazonAuth
   module SessionExtension
-
     def doc
       Nokogiri.HTML(session.html)
     end
@@ -30,7 +29,7 @@ module AmazonAuth
       session.visit url
       debug "Visiting #{url}"
       restore_cookies if keep_cookie?
-      if (link = links_for('a').find{|link| link =~ %r{\A/gp/navigation/redirector.html} })
+      if (link = links_for('a').find{|l| l =~ %r{\A/gp/navigation/redirector.html} })
         debug "link: [#{link}]"
         session.visit(link)
       end
@@ -108,11 +107,12 @@ module AmazonAuth
 
     private
 
-      def login
-        options.fetch(:login, Converter.decode(ENV['AMAZON_USERNAME_CODE']))
-      end
-      def password
-        options.fetch(:password, Converter.decode(ENV['AMAZON_PASSWORD_CODE']))
-      end
+    def login
+      options.fetch(:login, Converter.decode(ENV['AMAZON_USERNAME_CODE']))
+    end
+
+    def password
+      options.fetch(:password, Converter.decode(ENV['AMAZON_PASSWORD_CODE']))
+    end
   end
 end

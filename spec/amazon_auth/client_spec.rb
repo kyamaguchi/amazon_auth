@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe AmazonAuth::Client do
-
   describe '.new' do
     it "fails to initialize when login isn't given" do
       expect{
@@ -61,4 +60,3 @@ describe AmazonAuth::Client do
     end
   end
 end
-
