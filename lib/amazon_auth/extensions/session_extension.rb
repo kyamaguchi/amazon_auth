@@ -108,11 +108,11 @@ module AmazonAuth
 
     private
 
-      def login
-        options.fetch(:login, Converter.decode(ENV['AMAZON_USERNAME_CODE']))
-      end
-      def password
-        options.fetch(:password, Converter.decode(ENV['AMAZON_PASSWORD_CODE']))
-      end
+    def login
+      options.fetch(:login, Converter.decode(ENV['AMAZON_USERNAME_CODE']))
+    end
+    def password
+      options.fetch(:password, Converter.decode(ENV['AMAZON_PASSWORD_CODE']))
+    end
   end
 end
