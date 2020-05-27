@@ -29,7 +29,7 @@ module AmazonAuth
       session.visit url
       debug "Visiting #{url}"
       restore_cookies if keep_cookie?
-      if (link = links_for('a').find{|link| link =~ %r{\A/gp/navigation/redirector.html} })
+      if (link = links_for('a').find{|l| l =~ %r{\A/gp/navigation/redirector.html} })
         debug "link: [#{link}]"
         session.visit(link)
       end
