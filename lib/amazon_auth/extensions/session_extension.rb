@@ -29,7 +29,7 @@ module AmazonAuth
       session.visit url
       debug "Visiting #{url}"
       restore_cookies if keep_cookie?
-      if (link = links_for('a').find{|l| l =~ %r{\A/gp/navigation/redirector.html} })
+      if (link = find_sign_in_link)
         debug "link: [#{link}]"
         session.visit(link)
       end
@@ -103,6 +103,14 @@ module AmazonAuth
 
     def image_recognition_displayed?
       session.has_selector?('#auth-captcha-image-container')
+    end
+
+    def find_sign_in_link
+      link = links_for('a').find{|l| l =~ %r{\A/gp/navigation/redirector.html} }
+      return link if link
+      m = session.html.match(%r{'(/gp/navigation/redirector.html[^']+)'})
+      return m[1] if m
+      nil
     end
 
     private
