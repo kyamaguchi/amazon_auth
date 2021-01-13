@@ -106,10 +106,20 @@ module AmazonAuth
     end
 
     def find_sign_in_link
+      m1 = session.html.match(%r{(/ap/signin[^'"]+)['"]})
+      return CGI.unescapeHTML(m1[1]) if m1
+
+      # Maybe the following patterns are deprecated
       link = links_for('a').find{|l| l =~ %r{\A/gp/navigation/redirector.html} }
-      return link if link
-      m = session.html.match(%r{'(/gp/navigation/redirector.html[^']+)'})
-      return m[1] if m
+      if link
+        debug "Found a link [#{link}]"
+        return link
+      end
+      m2 = session.html.match(%r{'(/gp/navigation/redirector.html[^']+)'})
+      if m2
+        debug "Found a link (.html.match) [#{m2[1]}]"
+        return m2[1]
+      end
       nil
     end
 
