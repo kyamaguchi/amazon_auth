@@ -1,7 +1,7 @@
 # AmazonAuth
 
 [![Gem Version](https://badge.fury.io/rb/amazon_auth.svg)](https://badge.fury.io/rb/amazon_auth)
-[![Build Status](https://travis-ci.org/kyamaguchi/amazon_auth.svg?branch=master)](https://travis-ci.org/kyamaguchi/amazon_auth)
+[![CircleCI](https://circleci.com/gh/kyamaguchi/amazon_auth.svg?style=svg)](https://circleci.com/gh/kyamaguchi/amazon_auth)
 
 Sign In Amazon using Capybara and Selenium
 
@@ -31,7 +31,7 @@ Or install it yourself as:
 
 Before running, you need to **download chromedriver**.  
 And you may need to **update chromedriver regularly**.  
-Please download latest chromedriver_xxx.zip from http://chromedriver.storage.googleapis.com/index.html and place it somewhere on your PATH.
+Please download latest chromedriver_xxx.zip from https://chromedriver.storage.googleapis.com/index.html and place it somewhere on your PATH.
 
 ```
 mv ~/Downloads/chromedriver /usr/local/bin/
@@ -120,30 +120,11 @@ client = AmazonAuth::Client.new(debug: true)
 
 ### Use Firefox
 
-This gem may not work with newer versions of Firefox.  
-Check README of [capybara](https://github.com/teamcapybara/capybara).  
-
-Firefox (<= 47.0.2) may work better.  
-
-[Download Firefox](https://ftp.mozilla.org/pub/firefox/releases/)  
-Don't forget to disable automatic updates of Firefox.  
-
-You may also need geckodriver.  
-This may need to be older depending on the version of selenium-webdriver.  
-
-[Download geckodriver](https://github.com/mozilla/geckodriver/releases)  
-
-If the browser doesn't work, try selenium-webdriver version '~> 2.0' or different version of geckodriver/Firefox.
-
 In console,
 
 ```
 client = AmazonAuth::Client.new(driver: :firefox)
 ```
-
-## TODO
-
-- [Idea] Hook `submit_signin_form` after every `visit` and `click` action
 
 ## Development
 
