@@ -29,7 +29,9 @@ module AmazonAuth
       session.visit url
       debug "Visiting #{url}"
       restore_cookies if keep_cookie?
-      if (link = find_sign_in_link)
+      if session.current_url.include?('/ap/signin')
+        debug "current_url: [#{session.current_url}]"
+      elsif (link = find_sign_in_link)
         debug "link: [#{link}]"
         session.visit(link)
       end
