@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'amazon_auth'
+Dotenv.load('.env.test')
 
 Dir[File.join(File.dirname(__FILE__), "..", "spec", "support", "**/*.rb")].sort.each {|f| require f}
 

@@ -1,5 +1,6 @@
 require 'dotenv'
 Dotenv.load
+require 'base64'
 require "active_support/all"
 require "capybara"
 require "capybara/sessionkeeper"

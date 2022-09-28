@@ -7,7 +7,7 @@ module AmazonAuth
 
     def encode(str)
       raise "Empty string" if str.to_s.size == 0
-      Base64.strict_encode64("#{salt}#{str}")
+      ::Base64.strict_encode64("#{salt}#{str}")
     end
 
     def salt
@@ -16,7 +16,7 @@ module AmazonAuth
 
     def self.decode(code)
       raise "Empty string" if code.to_s.size == 0
-      Base64.strict_decode64(code).gsub(/\A#{salt}/, '')
+      ::Base64.strict_decode64(code).gsub(/\A#{salt}/, '')
     end
 
     def self.salt
