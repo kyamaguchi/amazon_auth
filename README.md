@@ -70,6 +70,8 @@ envchain amazon rails console
 In console, you can move around pages using Capybara DSL
 
 ```ruby
+require 'amazon_auth'
+
 # Without credentials in .env
 client = AmazonAuth::Client.new(login: 'your_amazon_email', password: 'your_amazon_password')
 
@@ -80,7 +82,7 @@ client = AmazonAuth::Client.new
 client.sign_in
 
 # Continue to the page for Kindle
-link = client.links_for('#navFooter a').find{|link| link =~ %r{/gp/digital/fiona/manage/} }
+link = client.links_for('#navFooter a').find{|link| link =~ %r{/hz/mycd/myx} }
 client.session.visit link
 ```
 
@@ -94,14 +96,16 @@ e.g. `AMAZON_DOMAIN=amazon.co.jp` for Japanese site
 
 Using [capybara-sessionkeeper gem](https://github.com/kyamaguchi/capybara-sessionkeeper)
 
-```
+```ruby
 client = AmazonAuth::Client.new(keep_cookie: true, debug: true)
+client.sign_in
 ```
 
 You can change Capyabra.save_path when it isn't set
 
-```
+```ruby
 client = AmazonAuth::Client.new(keep_cookie: true, save_path: 'tmp/cookies', debug: true)
+client.sign_in
 ```
 
 ### Logging
@@ -122,7 +126,7 @@ client = AmazonAuth::Client.new(debug: true)
 
 In console,
 
-```
+```ruby
 client = AmazonAuth::Client.new(driver: :firefox)
 ```
 
