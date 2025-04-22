@@ -57,7 +57,12 @@ module AmazonAuth
 
       debug "Begin submit_signin_form"
       unless session.has_selector?('#signInSubmit')
-        if session.has_selector?('input#continue') && session.has_selector?('input#ap_email')
+        if session.has_selector?('#continue input.a-button-input') && session.has_selector?('input#ap_email_login')
+          log "Found a form which asks only email (v2)"
+          session.fill_in 'ap_email_login', with: login
+          session.first('#continue input.a-button-input').click
+        # Maybe the following form is deprecated
+        elsif session.has_selector?('input#continue') && session.has_selector?('input#ap_email')
           log "Found a form which asks only email"
           session.fill_in 'ap_email', with: login
           session.first('input#continue').click
